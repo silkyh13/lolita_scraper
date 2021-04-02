@@ -31,7 +31,7 @@ const lolitaScraper = async (
   //uses the dom for that page
   const brandName = await page.evaluate(async () => {
     const body = document.getElementsByClassName("item");
-    if (body[0].getElementsByClassName("link_related_title")) {
+    if (!body[0].getElementsByClassName("link_search_title").length) {
       throw new Error("No results found");
       return;
     }
