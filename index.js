@@ -29,9 +29,12 @@ const lolitaScraper = async (
       sort
   );
   //uses the dom for that page
-  const brandName = await page.evaluate(() => {
+  const brandName = await page.evaluate(async () => {
     const body = document.getElementsByClassName("item");
-
+    if (body[0].getElementsByClassName("link_search_title")) {
+      throw new Error("No results found");
+      return;
+    }
     return Array.from(body).map((item) => {
       let price = "";
       let priceArr = Array.from(
